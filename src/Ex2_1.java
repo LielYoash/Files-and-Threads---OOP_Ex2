@@ -4,7 +4,7 @@ import java.util.Random;
 public class Ex2_1 {
 
     /**
-     * The following method create n text files with a random number of lines
+     * The following method creates n text files with a random number of lines
      * using a random number in order to insert a different amount of line in each file
      * then returning an array of strings-the names of the files.
      *
@@ -32,6 +32,13 @@ public class Ex2_1 {
         }
         return names;
     }
+
+    /**
+     * The following method receives an array of file names of String type, accesses those files
+     * and counts the number of lines inside them
+     * @param fileNames= the String array of the name of the files
+     * @return the sum of all the lines inside all the files.
+     */
     public static int getNumOfLines(String[] fileNames) {
         int sum = 0;
         try {
