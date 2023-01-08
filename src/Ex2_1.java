@@ -59,8 +59,13 @@ public class Ex2_1 {
     }
 
     /**
-     * @param fileNames
-     * @return
+     * The following method receives an array of file names of String type, accesses those files
+     * and counts the number of lines inside them using threads
+     * in addition creating an anonymous Thread class called MyThread that extends Thread
+     * in order to better handle our threads behavior
+     *
+     * @param fileNames = the String array of the name of the files
+     * @return sum of all lines
      */
     public int getNumOfLinesThreads(String[] fileNames) {
         MyThread[] threads = new MyThread[fileNames.length];
