@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.Random;
+import java.lang.Thread;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Ex2_1 {
 
@@ -56,13 +58,55 @@ public class Ex2_1 {
         return sum;
     }
 
-//    public int getNumOfLinesThreads(String[] fileNames) {
-//
-//    }
+    /**
+     * @param fileNames
+     * @return
+     */
+    public int getNumOfLinesThreads(String[] fileNames) {
+        MyThread[] threads = new MyThread[fileNames.length];
+        for (int i = 0; i < fileNames.length; i++) {
+            MyThread thread = new MyThread(fileNames[i]);
+            thread.start();
+            threads[i] = thread;
+        }
+        for (MyThread t : threads) {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return MyThread.ctr.get();
+    }
+
+    public class MyThread extends Thread {
+        static AtomicInteger ctr = new AtomicInteger(0);
+        String s;
+
+
+        public MyThread(String t1) {
+            super();
+            this.s = t1;
+        }
+
+        @Override
+        public void run() {
+            try {
+                FileInputStream file = new FileInputStream(s);
+                for (int i = 0; i != -1; i = file.read()) {
+                    if (i == '\n') {
+                        ctr.incrementAndGet();
+                    }
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+}
 //
 //    public int getNumOfLinesThreadPool(String[] fileNames) {
 //
 //    }
 
 
-}
