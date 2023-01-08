@@ -32,11 +32,20 @@ public class Ex2_1 {
         }
         return names;
     }
+    public static int getNumOfLines(String[] fileNames) {
+        int sum = 0;
+        try {
+            for (String name : fileNames) {
+                FileInputStream file = new FileInputStream(name);
+                for (int i = 0; i != -1; i = file.read())
+                    sum += i == '\n' ? 1 : 0;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return sum;
+    }
 
-//    public static int getNumOfLines(String[] fileNames) {
-//
-//    }
-//
 //    public int getNumOfLinesThreads(String[] fileNames) {
 //
 //    }
@@ -46,4 +55,4 @@ public class Ex2_1 {
 //    }
 
 
-}
+    }
