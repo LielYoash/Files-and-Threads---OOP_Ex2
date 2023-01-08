@@ -36,6 +36,7 @@ public class Ex2_1 {
     /**
      * The following method receives an array of file names of String type, accesses those files
      * and counts the number of lines inside them
+     *
      * @param fileNames= the String array of the name of the files
      * @return the sum of all the lines inside all the files.
      */
@@ -45,7 +46,9 @@ public class Ex2_1 {
             for (String name : fileNames) {
                 FileInputStream file = new FileInputStream(name);
                 for (int i = 0; i != -1; i = file.read())
-                    sum += i == '\n' ? 1 : 0;
+                    if (i == '\n') {
+                        sum += 1;
+                    }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -62,4 +65,4 @@ public class Ex2_1 {
 //    }
 
 
-    }
+}
