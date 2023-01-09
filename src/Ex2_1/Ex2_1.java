@@ -1,3 +1,5 @@
+package Ex2_1;
+
 import java.io.*;
 import java.util.Random;
 import java.lang.Thread;
@@ -126,6 +128,7 @@ public class Ex2_1 {
             threads[i] = thread;
 
         }
+        return 1;
     }
 
 
@@ -142,7 +145,7 @@ public class Ex2_1 {
         }
 
         public class ThreadPool {
-            private int poolSize= 5;
+            private int poolSize = 5;
             private int numOfFiles;
             private final LinkedBlockingQueue queue;
             private final Task[] files;
@@ -150,7 +153,7 @@ public class Ex2_1 {
             public ThreadPool(int num) {
                 numOfFiles = num;
                 queue = new LinkedBlockingQueue<>();
-                files= new Task[numOfFiles];
+                files = new Task[numOfFiles];
             }
 
         }

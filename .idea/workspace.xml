@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96a60159-07da-4220-b8a7-09c10495dfd5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Ex2_2/Task.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Ex2_2/TaskType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ex2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Ex2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ex2_1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ex2_1/Ex2_1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2_1/Ex2_1.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,9 +13,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JUnit5 Test Class" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -59,6 +55,7 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="Ex2_2" />
       <recent name="" />
     </key>
   </component>
