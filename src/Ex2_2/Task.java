@@ -13,4 +13,8 @@ public class Task {
     public int get(int i, TimeUnit milliseconds) {
         return 0;
     }
+
+    public <T> get() {
+        return ;
+    }
 }

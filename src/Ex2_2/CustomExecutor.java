@@ -1,9 +1,9 @@
 package Ex2_2;
 
 public class CustomExecutor {
-    
-    public Task submit(Task task){
-        
+
+    public <Collable> Task submit(Collable call, TaskType type){
+
     }
 
     public String getCurrentMax() {

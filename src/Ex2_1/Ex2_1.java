@@ -134,6 +134,7 @@ public class Ex2_1 {
 
     public class Task implements Callable {
         private String name;
+        private AtomicInteger ctr = new AtomicInteger(0);
 
         public Task(String name) {
             this.name = name;
@@ -141,19 +142,38 @@ public class Ex2_1 {
 
         @Override
         public Object call() throws Exception {
-            return null;
+            try {
+                FileInputStream file = new FileInputStream(name);
+                for (int i = 0; i != -1; i = file.read()) {
+                    if (i == '\n') {
+                        ctr.incrementAndGet();
+                    }
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return ctr;
         }
 
         public class ThreadPool {
-            private int poolSize = 5;
+            private final int poolSize = 5;
             private int numOfFiles;
             private final LinkedBlockingQueue queue;
             private final Task[] files;
+            public Thread[] threads;
 
             public ThreadPool(int num) {
                 numOfFiles = num;
                 queue = new LinkedBlockingQueue<>();
                 files = new Task[numOfFiles];
+            }
+
+            public void createThreads() {
+                 this.threads = new Thread[numOfFiles];
+                for (int i = 0; i < poolSize; i++) {
+                    Thread thread = new Thread();
+                    threads[i] = thread;
+                }
             }
 
         }
