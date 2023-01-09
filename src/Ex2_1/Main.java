@@ -7,5 +7,6 @@ public class Main {
         }
         System.out.println("normal: "+Ex2_1.getNumOfLines(str));
         System.out.println("threads: "+o.getNumOfLinesThreads(str));
+        System.out.println("threads: "+o.getNumOfLinesThreadPool(str));
     }
 }

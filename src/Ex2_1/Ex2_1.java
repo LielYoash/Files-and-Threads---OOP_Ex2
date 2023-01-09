@@ -1,7 +1,9 @@
 import java.io.*;
 import java.util.Random;
 import java.lang.Thread;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class Ex2_1 {
 
@@ -108,10 +110,49 @@ public class Ex2_1 {
             }
         }
     }
+
+    /**
+     * The following method receives an array of file names of String type, accesses those files
+     * and counts the number of lines inside them using Threadpool
+     *
+     * @param fileNames
+     * @return
+     */
+    public int getNumOfLinesThreadPool(String[] fileNames) {
+        Thread[] threads = new Thread[fileNames.length];
+        for (int i = 0; i < fileNames.length; i++) {
+            Thread thread = new Thread(fileNames[i]);
+            thread.start();
+            threads[i] = thread;
+
+        }
+    }
+
+
+    public class Task implements Callable {
+        private String name;
+
+        public Task(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public Object call() throws Exception {
+            return null;
+        }
+
+        public class ThreadPool {
+            private int poolSize= 5;
+            private int numOfFiles;
+            private final LinkedBlockingQueue queue;
+            private final Task[] files;
+
+            public ThreadPool(int num) {
+                numOfFiles = num;
+                queue = new LinkedBlockingQueue<>();
+                files= new Task[numOfFiles];
+            }
+
+        }
+    }
 }
-//
-//    public int getNumOfLinesThreadPool(String[] fileNames) {
-//
-//    }
-
-
