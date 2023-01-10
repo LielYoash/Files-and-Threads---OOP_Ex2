@@ -1,5 +1,4 @@
 package Ex2_1;
-
 import java.io.*;
 import java.util.Random;
 import java.lang.Thread;
@@ -160,7 +159,6 @@ public class Ex2_1 {
         }
         public Integer call() throws Exception {
             String name= fileNames;
-            BufferedReader reader = null;
             try {
                 FileInputStream file = new FileInputStream(fileNames);
                 for (int i = 0; i != -1; i = file.read()) {
