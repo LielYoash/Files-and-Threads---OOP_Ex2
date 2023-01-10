@@ -115,35 +115,45 @@ public class Ex2_1 {
 
     /**
      * The following method receives an array of file names of String type, accesses those files
-     * and counts the number of lines inside them using Threadpool
+     * and counts the number of lines inside them using Threadpool- creating new threadpool class and returning
+     * the wanted value using the call method
      *
-     * @param fileNames
-     * @return
+     * @param fileNames = the String array of the name of the files
+     * @return sum of all lines
      */
     public int getNumOfLinesThreadPool(String[] fileNames) {
-        Thread[] threads = new Thread[fileNames.length];
+        ExecutorService pool = Executors.newFixedThreadPool(fileNames.length);
+        int sum = 0;
+        LinkedBlockingQueue<Future<Integer>> futures = new LinkedBlockingQueue<>() {
+        };
         for (int i = 0; i < fileNames.length; i++) {
-            Thread thread = new Thread(fileNames[i]);
-            thread.start();
-            threads[i] = thread;
-
+            Callable<Integer> t = new threadPool(fileNames[i]);
+            futures.add(pool.submit(t));
         }
-        return 1;
+        //Threadpool shutdown
+        for (int i = 0; i < fileNames.length; i++) {
+            try {
+                sum += futures.poll().get();
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        pool.shutdown();
+        return sum;
     }
 
 
-    public class Task implements Callable {
-        private String name;
+    public class threadPool implements Callable <Integer>{
+        private String fileNames;
         private AtomicInteger ctr = new AtomicInteger(0);
-
-        public Task(String name) {
-            this.name = name;
+        public threadPool(String name){
+            this.fileNames =name;
         }
-
-        @Override
-        public Object call() throws Exception {
+        public Integer call() throws Exception {
+            String name= fileNames;
+            BufferedReader reader = null;
             try {
-                FileInputStream file = new FileInputStream(name);
+                FileInputStream file = new FileInputStream(fileNames);
                 for (int i = 0; i != -1; i = file.read()) {
                     if (i == '\n') {
                         ctr.incrementAndGet();
@@ -152,30 +162,9 @@ public class Ex2_1 {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            return ctr;
-        }
-
-        public class ThreadPool {
-            private final int poolSize = 5;
-            private int numOfFiles;
-            private final LinkedBlockingQueue queue;
-            private final Task[] files;
-            public Thread[] threads;
-
-            public ThreadPool(int num) {
-                numOfFiles = num;
-                queue = new LinkedBlockingQueue<>();
-                files = new Task[numOfFiles];
-            }
-
-            public void createThreads() {
-                 this.threads = new Thread[numOfFiles];
-                for (int i = 0; i < poolSize; i++) {
-                    Thread thread = new Thread();
-                    threads[i] = thread;
-                }
-            }
-
+            return ctr.get();
         }
     }
 }
+
+
