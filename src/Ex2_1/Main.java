@@ -2,7 +2,7 @@ package Ex2_1;
 
 public class Main {
     public static void main(String[] args) {
-        int rand = (int) (Math.random()*1000);
+        int rand = (int) (Math.random()*101);
         String[] str = Ex2_1.createTextFiles(rand, 1, 100);
         Ex2_1 o = new Ex2_1();
         for (String name : str) {
