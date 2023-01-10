@@ -14,7 +14,4 @@ public class Task {
         return 0;
     }
 
-    public <T> get() {
-        return ;
-    }
 }
