@@ -3,12 +3,13 @@ package Ex2_1;
 public class Main {
     public static void main(String[] args) {
         int rand = (int) (Math.random()*101);
+        System.out.println("n= "+rand);
         String[] str = Ex2_1.createTextFiles(rand, 1, 100);
         Ex2_1 o = new Ex2_1();
         for (String name : str) {
             System.out.println(" " + name + ",");
         }
-        double totalFunc2 = 0l, totalFunc3 = 0l, totalFunc4 = 0l;
+        double totalFunc2 = 0, totalFunc3 = 0, totalFunc4 = 0;
         for (int i = 0; i < 1000; i++) {
             long startTimeFunc2 = System.currentTimeMillis();
 //            System.out.println("Normal: " + Ex2_1.getNumOfLines(str));
