@@ -1,15 +1,23 @@
 package Ex2_2;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.FutureTask;
 
 public class Task<T> implements Callable<T>, Comparable<Task> {
 
     private T returnVal;
-    private TaskType type = TaskType.OTHER;
+    private TaskType type;
     private Callable<?> action;
     private Task<T> task;
+    private FutureTask<T> futureTask;
 
+    public FutureTask<T> getFutureTask() {
+        return futureTask;
+    }
+
+    public void setFutureTask(FutureTask<T> futureTask) {
+        this.futureTask = futureTask;
+    }
 
     private Task(Callable<?> callable, TaskType type) {
         this.type = type;
@@ -18,7 +26,7 @@ public class Task<T> implements Callable<T>, Comparable<Task> {
 
 
     public TaskType getType() {
-        return type;
+        return this.type;
     }
 
 

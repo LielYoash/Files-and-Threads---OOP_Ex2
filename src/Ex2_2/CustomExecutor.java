@@ -1,59 +1,80 @@
 package Ex2_2;
 
-import Ex2_1.Ex2_1;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.concurrent.*;
 
 public class CustomExecutor {
-    private PriorityBlockingQueue<Task> taskQueue;
-    private ArrayList<Thread> threads;
-    private int availableProcessors;
+
+    ThreadFactory threadFactory;
+    int core = Runtime.getRuntime().availableProcessors();
+    ExecutorService pool = Executors.newFixedThreadPool(core / 2, threadFactory);
+
+
+    /**
+     * Here
+     */
+    private PriorityBlockingQueue<Task> taskQueue = new PriorityBlockingQueue<>();
+    private ArrayList<Thread> threads = new ArrayList<>();
+    private int availableProcessors = Runtime.getRuntime().availableProcessors();
 
     public CustomExecutor() {
-        this.taskQueue = new PriorityBlockingQueue<>();
-        this.threads = new ArrayList<>();
-        availableProcessors = Runtime.getRuntime().availableProcessors();
-        for (int i = 0; i < availableProcessors / 2; i++) {
-            threads.add(new ExecutorThread());
+        for (int i = 0; i < availableProcessors - 1; i++) {
+            Thread thread = new Thread(() -> runTasks());
+            threads.add(thread);
+            thread.start();
         }
     }
 
+    public FutureTask submit(Task task) {
+        return submit(task, TaskType.OTHER);
+    }
 
     /**
      * TODO check what the return type should be
      */
-    public FutureTask submit(Callable operation) {
+    public FutureTask submit(Callable operation, TaskType type) {
         /** insert task to queue */
         Task task;
         if (operation instanceof Task) {
             task = (Task) operation;
         } else {
-            task = Task.createTask(operation, TaskType.OTHER);
+            task = Task.createTask(operation, type);
         }
         taskQueue.add(task);
 
 
-        FutureTask futureTask = null;
-
-        if (threads.isEmpty()) {
-            // TODO create more threads until max
-            // TODO timeout
-        } else {
-            Thread thread = threads.remove(0);
-//            futureTask = new FutureTask();
-            thread.start();
-            thread.run();
-
-        }
+        FutureTask futureTask = new FutureTask<>(task);
+        task.setFutureTask(futureTask);
         return futureTask;
     }
 
-    public void gracefullyTerminate() {
+    private void runTasks() {
+        while (true) {
+            Task t = this.taskQueue.poll();
+            t.getFutureTask().run();
+
+        }
     }
 
     public String getCurrentMax() {
+        return "hi";
+    }
+
+    public void gracefullyTerminate() {
+        if (taskQueue.isEmpty()) {
+            for (Thread thread : threads) {
+                thread.interrupt();
+            }
+        } else {
+            try {
+                wait(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            gracefullyTerminate();
+        }
     }
 
     class ExecutorThread extends Thread {
@@ -68,10 +89,4 @@ public class CustomExecutor {
             }
         }
     }
-
-    public void submit(Callable<?> operation, TaskType type) {
-        Task task = Task.createTask(operation, type);
-        taskQueue.add(task);
-    }
-
 }
