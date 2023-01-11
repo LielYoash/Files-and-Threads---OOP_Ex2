@@ -1,6 +1,5 @@
-import Ex2_2.CustomExecutor;
-import Ex2_2.Task;
-import Ex2_2.TaskType;
+package Ex2_2;
+
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
