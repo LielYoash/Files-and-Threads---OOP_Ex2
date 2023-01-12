@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96a60159-07da-4220-b8a7-09c10495dfd5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/screenShots/10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenShots/100.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenShots/16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenShots/200.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenShots/34.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenShots/42.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenShots/51.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenShots/67.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenShots/7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/screenShots/78.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ex2_2/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2_2/Task.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +155,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1673125404753</updated>
-      <workItem from="1673433247264" duration="42677000" />
+      <workItem from="1673433247264" duration="45674000" />
     </task>
     <servers />
   </component>
