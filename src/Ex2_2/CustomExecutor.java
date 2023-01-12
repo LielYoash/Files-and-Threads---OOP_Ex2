@@ -7,7 +7,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
     private int maxPriority = TaskType.OTHER.getPriorityValue();
 
     public CustomExecutor() {
-        super(Runtime.getRuntime().availableProcessors() / 2, Runtime.getRuntime().availableProcessors() - 1, 0L, TimeUnit.MILLISECONDS, new PriorityBlockingQueue<>());
+        super(Runtime.getRuntime().availableProcessors() / 2, Runtime.getRuntime().availableProcessors() - 1, 300, TimeUnit.MILLISECONDS, new PriorityBlockingQueue<>());
     }
 
     public <T> FutureTask<T> submit(Callable<T> operation, TaskType type) {
