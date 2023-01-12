@@ -11,7 +11,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
         super(Runtime.getRuntime().availableProcessors() / 2, Runtime.getRuntime().availableProcessors() - 1, 0L, TimeUnit.MILLISECONDS, new PriorityBlockingQueue<>());
     }
 
-    public <T> Future<T> submit(Callable<T> operation, TaskType type) {
+    public <T> FutureTask<T> submit(Callable<T> operation, TaskType type) {
         Task<T> task = Task.createTask(operation, type);
         types.add(task.getType());
         findMaxPriority();
@@ -21,7 +21,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
         return futureTask;
     }
 
-    public <T> Future<T> submit(Callable<T> operation) {
+    public <T> FutureTask<T> submit(Callable<T> operation) {
         if (operation instanceof Task<T> task) {
             return submit(task, task.getType());
         }
@@ -51,7 +51,7 @@ public class CustomExecutor extends ThreadPoolExecutor {
 
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
-        if (maxPriority > 0 && maxPriority<=3)
+        if (maxPriority > 0 && maxPriority <= 3)
             types.poll();
         findMaxPriority();
     }

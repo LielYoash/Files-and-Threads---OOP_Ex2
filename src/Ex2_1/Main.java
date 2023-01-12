@@ -3,8 +3,9 @@ package Ex2_1;
 public class Main {
     public static void main(String[] args) {
         int rand = (int) (Math.random() * 101);
+        int rand2 = (int) (Math.random() * 101);
         System.out.println("n= " + rand);
-        String[] str = Ex2_1.createTextFiles(rand, 1, 100);
+        String[] str = Ex2_1.createTextFiles(rand, rand2, 100);
         Ex2_1 o = new Ex2_1();
         for (String name : str) {
             System.out.println(" " + name + ",");
@@ -31,9 +32,9 @@ public class Main {
         System.out.println("ThreadPool total: " + totalFunc4 / 1000 + " millisecs");
 
         // number of lines only
-//        System.out.println("Normal: " + Ex2_1.getNumOfLines(str));
-//        System.out.println("Threads: " + o.getNumOfLinesThreads(str));
-//        System.out.println("Thread-Pool: " + o.getNumOfLinesThreadPool(str));
+        System.out.println("Normal: " + Ex2_1.getNumOfLines(str));
+        System.out.println("Threads: " + o.getNumOfLinesThreads(str));
+        System.out.println("Thread-Pool: " + o.getNumOfLinesThreadPool(str));
     }
 
 

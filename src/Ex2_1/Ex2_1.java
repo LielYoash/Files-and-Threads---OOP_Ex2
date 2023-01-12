@@ -1,4 +1,5 @@
 package Ex2_1;
+
 import java.io.*;
 import java.util.Random;
 import java.lang.Thread;
@@ -25,11 +26,13 @@ public class Ex2_1 {
         try {
             for (int i = 1; i <= n; i++) {
                 FileOutputStream file = new FileOutputStream(fileName + i + "." + fileType);
-                Random rand = new Random(i);
+                Random rand = new Random(seed);
                 int x = rand.nextInt(bound);
-                for (int j = 1; j <= x; j++) {
+                for (int j = 1; j < x; j++) {
                     file.write(("hello world\n").getBytes());
                 }
+                file.write(("hello world").getBytes());
+
                 names[i - 1] = fileName + i + "." + fileType;
             }
         } catch (IOException e) {
@@ -151,14 +154,16 @@ public class Ex2_1 {
     }
 
 
-    public class ThreadPool implements Callable <Integer>{
+    public class ThreadPool implements Callable<Integer> {
         private String fileNames;
         private AtomicInteger ctr = new AtomicInteger(0);
-        public ThreadPool(String name){
-            this.fileNames =name;
+
+        public ThreadPool(String name) {
+            this.fileNames = name;
         }
+
         public Integer call() throws Exception {
-            String name= fileNames;
+            String name = fileNames;
             try {
                 FileInputStream file = new FileInputStream(fileNames);
                 for (int i = 0; i != -1; i = file.read()) {

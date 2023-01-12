@@ -9,7 +9,6 @@
       <change beforePath="$PROJECT_DIR$/src/Ex2_1/Ex2_1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2_1/Ex2_1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Ex2_1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2_1/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Ex2_2/CustomExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2_2/CustomExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ex2_2/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2_2/Task.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +74,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Ex2_1.Main">
+  <component name="RunManager" selected="JUnit.Tests.partialTest">
     <configuration name="Ex2_1.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Ex2_1.Main" />
       <module name="Ex2" />
@@ -141,8 +140,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Ex2_1.Main" />
         <item itemvalue="JUnit.Tests.partialTest" />
+        <item itemvalue="Application.Ex2_1.Main" />
         <item itemvalue="Application.Ex2_2.Main" />
         <item itemvalue="JUnit.Ex2_1 in Ex2" />
         <item itemvalue="Application.Main" />
@@ -157,7 +156,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1673125404753</updated>
-      <workItem from="1673433247264" duration="37719000" />
+      <workItem from="1673433247264" duration="38814000" />
     </task>
     <servers />
   </component>
