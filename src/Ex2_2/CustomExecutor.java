@@ -3,8 +3,7 @@ package Ex2_2;
 import java.util.concurrent.*;
 
 public class CustomExecutor extends ThreadPoolExecutor {
-    private final PriorityBlockingQueue<TaskType> types = new PriorityBlockingQueue<>() {
-    };
+    private final PriorityBlockingQueue<TaskType> types = new PriorityBlockingQueue<>();
     private int maxPriority = TaskType.OTHER.getPriorityValue();
 
     public CustomExecutor() {
