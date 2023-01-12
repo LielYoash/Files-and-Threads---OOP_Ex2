@@ -39,7 +39,6 @@ public class CustomExecutor extends ThreadPoolExecutor {
     }
 
     public void gracefullyTerminate() {
-
         super.shutdown();
         try {
             super.awaitTermination(300, TimeUnit.MILLISECONDS);
