@@ -135,7 +135,7 @@ public class Ex2_1 {
         LinkedBlockingQueue<Future<Integer>> futures = new LinkedBlockingQueue<>() {
         };
         for (int i = 0; i < fileNames.length; i++) {
-            Callable<Integer> t = new Ex2_1.Ex2_1.ThreadPool(fileNames[i]);
+            Callable<Integer> t = new ThreadPool(fileNames[i]);
             futures.add(pool.submit(t));
         }
         //Threadpool shutdown

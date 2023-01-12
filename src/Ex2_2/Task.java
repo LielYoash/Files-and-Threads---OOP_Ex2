@@ -3,55 +3,43 @@ package Ex2_2;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
-public class Task<T> implements Callable<T>, Comparable<Task> {
-
-    private T returnVal;
-    private TaskType type;
-    private Callable<?> action;
-    private Task<T> task;
+public class Task<T> implements Callable<T>, Comparable<Task>{
+    private final TaskType type;
+    private final Callable<T> action;
     private FutureTask<T> futureTask;
-
-    public FutureTask<T> getFutureTask() {
-        return futureTask;
-    }
 
     public void setFutureTask(FutureTask<T> futureTask) {
         this.futureTask = futureTask;
     }
 
-    private Task(Callable<?> callable, TaskType type) {
+    private Task(Callable<T> callable, TaskType type) {
         this.type = type;
         this.action = callable;
     }
 
 
     public TaskType getType() {
-        return this.type;
+        return type;
     }
 
-
-    public static Task createTask(Callable<?> task, TaskType type) {
-        return new Task(task, type);
+    public static <V> Task<V> createTask(Callable<V> task, TaskType type){
+        return new Task<V>(task, type);
     }
-
-    public Task createTask() {
-        return createTask(this.action, TaskType.OTHER);
-    }
-
-
     @Override
     public T call() throws Exception {
 
-        return returnVal;
+        return  action.call();
     }
 
     @Override
     public int compareTo(Task other) {
-        if (this.type.getPriorityValue() > other.type.getPriorityValue()) {
+        if(this.type.getPriorityValue() > other.type.getPriorityValue()){
             return 1;
-        } else if (this.type.getPriorityValue() < other.type.getPriorityValue()) {
+        }
+        else if(this.type.getPriorityValue() < other.type.getPriorityValue()){
             return -1;
-        } else {
+        }
+        else {
             return 0;
         }
     }

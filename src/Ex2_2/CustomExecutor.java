@@ -1,92 +1,58 @@
 package Ex2_2;
 
-
-import java.util.ArrayList;
-import java.util.PriorityQueue;
 import java.util.concurrent.*;
 
-public class CustomExecutor {
-
-    ThreadFactory threadFactory;
-    int core = Runtime.getRuntime().availableProcessors();
-    ExecutorService pool = Executors.newFixedThreadPool(core / 2, threadFactory);
-
-
-    /**
-     * Here
-     */
-    private PriorityBlockingQueue<Task> taskQueue = new PriorityBlockingQueue<>();
-    private ArrayList<Thread> threads = new ArrayList<>();
-    private int availableProcessors = Runtime.getRuntime().availableProcessors();
+public class CustomExecutor extends ThreadPoolExecutor {
+    private final PriorityBlockingQueue<TaskType> types = new PriorityBlockingQueue<>() {
+    };
+    private int maxPriority = TaskType.OTHER.getPriorityValue();
 
     public CustomExecutor() {
-        for (int i = 0; i < availableProcessors - 1; i++) {
-            Thread thread = new Thread(() -> runTasks());
-            threads.add(thread);
-            thread.start();
-        }
+        super(Runtime.getRuntime().availableProcessors() / 2, Runtime.getRuntime().availableProcessors() - 1, 0L, TimeUnit.MILLISECONDS, new PriorityBlockingQueue<>());
     }
 
-    public FutureTask submit(Task task) {
-        return submit(task, TaskType.OTHER);
-    }
-
-    /**
-     * TODO check what the return type should be
-     */
-    public FutureTask submit(Callable operation, TaskType type) {
-        /** insert task to queue */
-        Task task;
-        if (operation instanceof Task) {
-            task = (Task) operation;
-        } else {
-            task = Task.createTask(operation, type);
-        }
-        taskQueue.add(task);
-
-
-        FutureTask futureTask = new FutureTask<>(task);
+    public <T> Future<T> submit(Callable<T> operation, TaskType type) {
+        Task<T> task = Task.createTask(operation, type);
+        types.add(task.getType());
+        findMaxPriority();
+        FutureTask<T> futureTask = new FutureTask<>(task);
         task.setFutureTask(futureTask);
+        execute(futureTask);
         return futureTask;
     }
 
-    private void runTasks() {
-        while (true) {
-            Task t = this.taskQueue.poll();
-            t.getFutureTask().run();
-
+    public <T> Future<T> submit(Callable<T> operation) {
+        if (operation instanceof Task<T> task) {
+            return submit(task, task.getType());
         }
+        return submit(operation, TaskType.OTHER);
     }
 
-    public String getCurrentMax() {
-        return "hi";
+    public int getCurrentMax() {
+        return maxPriority;
+    }
+
+    public void findMaxPriority() {
+        if (types.peek() == null) {
+            return;
+        }
+        this.maxPriority = types.peek().getPriorityValue();
     }
 
     public void gracefullyTerminate() {
-        if (taskQueue.isEmpty()) {
-            for (Thread thread : threads) {
-                thread.interrupt();
-            }
-        } else {
-            try {
-                wait(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            gracefullyTerminate();
+
+        super.shutdown();
+        try {
+            super.awaitTermination(300, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    class ExecutorThread extends Thread {
-        @Override
-        public void run() {
-            Task poll = CustomExecutor.this.taskQueue.poll();
-            try {
-                assert poll != null;
-                poll.call();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    @Override
+    protected void beforeExecute(Thread t, Runnable r) {
+        if (maxPriority > 0 && maxPriority<=3)
+            types.poll();
+        findMaxPriority();
     }
 }
